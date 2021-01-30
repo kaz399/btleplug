@@ -12,6 +12,7 @@
 // Copyright (c) 2014 The Rust Project Developers
 
 mod adapter_manager;
+pub mod async_api;
 pub mod bleuuid;
 
 use crate::{Error, Result};
