@@ -12,6 +12,7 @@
 // Copyright (c) 2014 The Rust Project Developers
 
 mod adapter_manager;
+#[cfg(feature = "async")]
 pub mod async_api;
 pub mod bleuuid;
 
