@@ -3,7 +3,7 @@ use std::error::Error;
 use std::time::Duration;
 use tokio::time;
 
-use btleplug::api::async_api::{Central, Peripheral};
+use btleplug::api::{Central, Peripheral};
 #[cfg(target_os = "linux")]
 use btleplug::bluez::manager::Manager;
 #[cfg(target_os = "macos")]

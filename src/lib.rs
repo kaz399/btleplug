@@ -31,8 +31,7 @@
 //! use btleplug::winrtble::manager::Manager;
 //! #[cfg(target_os = "macos")]
 //! use btleplug::corebluetooth::manager::Manager;
-//! use btleplug::api::async_api::{Central, Peripheral};
-//! use btleplug::api::{bleuuid::uuid_from_u16, WriteType};
+//! use btleplug::api::{bleuuid::uuid_from_u16, Central, Peripheral, WriteType};
 //! use uuid::Uuid;
 //!
 //! const LIGHT_CHARACTERISTIC_UUID: Uuid = uuid_from_u16(0xFFE9);
@@ -103,7 +102,7 @@ use std::result;
 use std::time::Duration;
 
 pub mod api;
-#[cfg(all(target_os = "linux", feature = "async"))]
+#[cfg(target_os = "linux")]
 pub mod bluez;
 mod common;
 #[cfg(any(target_os = "macos", target_os = "ios"))]

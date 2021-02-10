@@ -1,5 +1,4 @@
-use btleplug::api::async_api::Central;
-use btleplug::api::{bleuuid::BleUuid, CentralEvent};
+use btleplug::api::{bleuuid::BleUuid, Central, CentralEvent};
 #[cfg(target_os = "linux")]
 use btleplug::bluez::{adapter::Adapter, manager::Manager};
 #[cfg(target_os = "macos")]
