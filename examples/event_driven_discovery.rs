@@ -1,7 +1,7 @@
 use btleplug::api::async_api::Central;
 use btleplug::api::{bleuuid::BleUuid, CentralEvent};
 #[cfg(target_os = "linux")]
-use btleplug::bluez_async::{adapter::Adapter, manager::Manager};
+use btleplug::bluez::{adapter::Adapter, manager::Manager};
 #[cfg(target_os = "macos")]
 use btleplug::corebluetooth::{adapter::Adapter, manager::Manager};
 #[cfg(target_os = "windows")]

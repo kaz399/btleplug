@@ -5,7 +5,7 @@ use tokio::time;
 
 use btleplug::api::async_api::{Central, Peripheral};
 #[cfg(target_os = "linux")]
-use btleplug::bluez_async::manager::Manager;
+use btleplug::bluez::manager::Manager;
 #[cfg(target_os = "macos")]
 use btleplug::corebluetooth::manager::Manager;
 #[cfg(target_os = "windows")]

@@ -26,7 +26,7 @@
 //! use std::time::Duration;
 //! use tokio::time;
 //! #[cfg(target_os = "linux")]
-//! use btleplug::bluez_async::manager::Manager;
+//! use btleplug::bluez::manager::Manager;
 //! #[cfg(target_os = "windows")]
 //! use btleplug::winrtble::manager::Manager;
 //! #[cfg(target_os = "macos")]
@@ -103,10 +103,8 @@ use std::result;
 use std::time::Duration;
 
 pub mod api;
-#[cfg(target_os = "linux")]
-pub mod bluez;
 #[cfg(all(target_os = "linux", feature = "async"))]
-pub mod bluez_async;
+pub mod bluez;
 mod common;
 #[cfg(any(target_os = "macos", target_os = "ios"))]
 pub mod corebluetooth;

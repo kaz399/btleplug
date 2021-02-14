@@ -1,7 +1,7 @@
 use btleplug::api::async_api::{Central, Peripheral};
 use btleplug::api::{bleuuid::uuid_from_u16, WriteType};
 #[cfg(target_os = "linux")]
-use btleplug::bluez_async::manager::Manager;
+use btleplug::bluez::manager::Manager;
 #[cfg(target_os = "macos")]
 use btleplug::corebluetooth::manager::Manager;
 #[cfg(target_os = "windows")]
