@@ -137,7 +137,7 @@ impl Peripheral {
         }
     }
 
-    pub(crate) fn emit(&self, event: CentralEvent) {
+    fn emit(&self, event: CentralEvent) {
         debug!("emitted {:?}", event);
         self.manager.emit(event)
     }
