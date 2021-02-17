@@ -32,6 +32,7 @@ uuid = "0.8.2"
 serde_cr = { package = "serde", version = "1.0.123", features = ["derive"], default-features = false, optional = true }
 dashmap = "4.0.2"
 futures = "0.3.12"
+tokio = { version = "1.2", features = ["rt"] }
 
 [target.'cfg(target_os = "linux")'.dependencies]
 bluez-async = "0.2.1"
@@ -51,4 +52,4 @@ windows = "0.3.1"
 [dev-dependencies]
 simple_logger = "1.11.0"
 rand = "0.8.3"
-tokio = { version = "1.0.1", features = ["macros", "rt", "rt-multi-thread"] }
+tokio = { version = "1.2", features = ["macros", "rt", "rt-multi-thread"] }
