@@ -14,9 +14,12 @@
 use super::{ble::watcher::BLEWatcher, peripheral::Peripheral, utils};
 use crate::{
     api::{AdapterManager, BDAddr, Central, CentralEvent},
-    Result,
+    Error, Result,
 };
-use std::sync::{mpsc::Receiver, Arc, Mutex};
+use async_trait::async_trait;
+use futures::stream::Stream;
+use std::pin::Pin;
+use std::sync::{Arc, Mutex};
 
 #[derive(Clone)]
 pub struct Adapter {
@@ -32,12 +35,13 @@ impl Adapter {
     }
 }
 
+#[async_trait]
 impl Central<Peripheral> for Adapter {
-    fn event_receiver(&self) -> Option<Receiver<CentralEvent>> {
-        self.manager.event_receiver()
+    async fn events(&self) -> Result<Pin<Box<dyn Stream<Item = CentralEvent>>>> {
+        Ok(self.manager.event_stream())
     }
 
-    fn start_scan(&self) -> Result<()> {
+    async fn start_scan(&self) -> Result<()> {
         let watcher = self.watcher.lock().unwrap();
         let manager = self.manager.clone();
         watcher.start(Box::new(move |args| {
@@ -55,21 +59,23 @@ impl Central<Peripheral> for Adapter {
         }))
     }
 
-    fn stop_scan(&self) -> Result<()> {
+    async fn stop_scan(&self) -> Result<()> {
         let watcher = self.watcher.lock().unwrap();
         watcher.stop().unwrap();
         Ok(())
     }
 
-    fn peripherals(&self) -> Vec<Peripheral> {
-        self.manager.peripherals()
+    async fn peripherals(&self) -> Result<Vec<Peripheral>> {
+        Ok(self.manager.peripherals())
     }
 
-    fn peripheral(&self, address: BDAddr) -> Option<Peripheral> {
-        self.manager.peripheral(address)
+    async fn peripheral(&self, address: BDAddr) -> Result<Peripheral> {
+        self.manager
+            .peripheral(address)
+            .ok_or(Error::DeviceNotFound)
     }
 
-    fn active(&self, _enabled: bool) {}
+    async fn active(&self, _enabled: bool) {}
 
-    fn filter_duplicates(&self, _enabled: bool) {}
+    async fn filter_duplicates(&self, _enabled: bool) {}
 }
