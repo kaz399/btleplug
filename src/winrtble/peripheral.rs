@@ -344,7 +344,7 @@ impl ApiPeripheral for Peripheral {
 
     async fn read(&self, characteristic: &Characteristic) -> Result<Vec<u8>> {
         if let Some(ble_characteristic) = self.ble_characteristics.get(&characteristic.uuid) {
-            return ble_characteristic.read_value();
+            ble_characteristic.read_value().await
         } else {
             Err(Error::NotSupported("read".into()))
         }

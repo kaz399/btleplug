@@ -20,6 +20,7 @@ use bindings::windows::devices::bluetooth::generic_attribute_profile::{
 };
 use bindings::windows::foundation::{EventRegistrationToken, TypedEventHandler};
 use bindings::windows::storage::streams::{DataReader, DataWriter};
+use futures::FutureExt;
 use log::info;
 
 pub type NotifiyEventHandler = Box<dyn Fn(Vec<u8>) + Send>;
@@ -66,12 +67,13 @@ impl BLECharacteristic {
         }
     }
 
-    pub fn read_value(&self) -> Result<Vec<u8>> {
+    pub async fn read_value(&self) -> Result<Vec<u8>> {
         let result = self
             .characteristic
             .read_value_async()
             .unwrap()
-            .get()
+            .boxed_local()
+            .await
             .unwrap();
         if result.status().unwrap() == GattCommunicationStatus::Success {
             let value = result.value().unwrap();
