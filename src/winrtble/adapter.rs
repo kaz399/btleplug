@@ -74,8 +74,4 @@ impl Central<Peripheral> for Adapter {
             .peripheral(address)
             .ok_or(Error::DeviceNotFound)
     }
-
-    async fn active(&self, _enabled: bool) {}
-
-    async fn filter_duplicates(&self, _enabled: bool) {}
 }
